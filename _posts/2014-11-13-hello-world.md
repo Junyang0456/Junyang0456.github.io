@@ -11,7 +11,7 @@ tags:
 
 这个博客基于[jekyll-bootstrap][jekyll-bootstrap], fork了[午夜咖啡][jolestar]的主题，托管在`github`上。
 
-<!-- more -->
+<!--more-->
 
 纯静态博客。
 
