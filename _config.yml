@@ -17,18 +17,15 @@ google_analytics:
 
 # Optional features
 animated:           false
-show_related_posts: false
+show_related_posts: true
 show_post_footers:  false
 
 # Social icons
 show_social_icons: true
 github_username: liaoishere
-twitter_username: liaoisehere
-google_plus_id: liaoishere
+twitter_username: liaoishere
 linkedin_username: liaoishere
-bitcoin_url:
-paypal_url:
-flattr_button:
+
 
 # Build settings
 markdown:     kramdown
