@@ -22,10 +22,10 @@ show_post_footers:  false
 
 # Social icons
 show_social_icons: false
-github_username:
-twitter_username:
-google_plus_id:
-linkedin_username:
+github_username: liaoishere
+twitter_username: liaoisehere
+google_plus_id: liaoishere
+linkedin_username: liaoishere
 bitcoin_url:
 paypal_url:
 flattr_button:

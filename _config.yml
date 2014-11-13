@@ -1,5 +1,5 @@
 # Site settings
-title:       廖鹏辉的网络日志
+title:       Like a rolling stone
 email:       liaoishere@gmail.com
 author:      Liao Penghui
 description: "A simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff."
@@ -21,7 +21,7 @@ show_related_posts: false
 show_post_footers:  false
 
 # Social icons
-show_social_icons: false
+show_social_icons: true
 github_username: liaoishere
 twitter_username: liaoisehere
 google_plus_id: liaoishere
