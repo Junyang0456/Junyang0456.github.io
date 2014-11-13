@@ -1,16 +1,16 @@
 # Site settings
-title:       pixell中文版 
-email:       youremail@example.com 
-author:      John Otander
+title:       廖鹏辉的网络日志
+email:       liaoishere@gmail.com
+author:      Liao Penghui
 description: "A simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff."
 baseurl:     ""
-url:         "http://pixyll.maxee.info"
+url:         "http://liaoph.com"
 
 #Duoshuo short Name / 多说的shortname
-duoshuo: 
+duoshuo: liaoishere
 
 #Baidu analytics / 百度统计(异步的js码，注意使用异步版本的)
-baidu_analyze: 3908cbb144cf558ba6a823230d653fc22 
+baidu_analyze: ca24cc0fb86c19c1a88f5f7a020629d3
 
 # Google analytics
 google_analytics:
@@ -22,10 +22,10 @@ show_post_footers:  false
 
 # Social icons
 show_social_icons: false
-github_username:
-twitter_username:
-google_plus_id:
-linkedin_username:
+github_username: liaoishere
+twitter_username: liaoisehere
+google_plus_id: liaoishere
+linkedin_username: liaoishere
 bitcoin_url:
 paypal_url:
 flattr_button:
