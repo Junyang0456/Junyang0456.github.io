@@ -18,71 +18,71 @@ sublime text 是一款跨平台的编辑器，安装插件方便，界面相当�
 ## 配置文件
 
 配置文件在 Preferences -->  Settings--User, 下面是我的配置
-```
-{
-	// Theme & Color
-	"theme": "Soda Dark 3.sublime-theme",
-	"color_scheme": "Packages/Monokai Gray/MonokaiGray.tmTheme",
-	"drag_text": false,
 
-	// Font
-	"font_face": "Consolas",
-	"font_size": 11,
-	"font_options":
-	[
-		"subpixel_antialias",
-		"directwrite"
-	],
-	"line_padding_bottom": 1,
-	"line_padding_top": 1,
-	"default_line_ending": "unix",
-	"default_encoding": "UTF-8",
+	{
+		// Theme & Color
+		"theme": "Soda Dark 3.sublime-theme",
+		"color_scheme": "Packages/Monokai Gray/MonokaiGray.tmTheme",
+		"drag_text": false,
 
-	// Indentation
-	"auto_indent": true,
-	"smart_indent": true,
-	"tab_size": 4,
-	"translate_tabs_to_spaces": true,
-	"trim_trailing_white_space_on_save": true,
-	"indent_to_bracket": true,
-	"ensure_newline_at_eof_on_save": true,
-	"trim_automatic_white_space": true,
+		// Font
+		"font_face": "Consolas",
+		"font_size": 11,
+		"font_options":
+		[
+			"subpixel_antialias",
+			"directwrite"
+		],
+		"line_padding_bottom": 1,
+		"line_padding_top": 1,
+		"default_line_ending": "unix",
+		"default_encoding": "UTF-8",
 
-	// Editor View
-	"show_full_path": true,
-	"show_minimap": false,
-	"highlight_line": true,
-	"fold_buttons": false,
-	"word_wrap": true,
+		// Indentation
+		"auto_indent": true,
+		"smart_indent": true,
+		"tab_size": 4,
+		"translate_tabs_to_spaces": true,
+		"trim_trailing_white_space_on_save": true,
+		"indent_to_bracket": true,
+		"ensure_newline_at_eof_on_save": true,
+		"trim_automatic_white_space": true,
 
-	// Editor Behavior
-	"find_selected_text": true,
-	"scroll_past_end": false,
-	"highlight_modified_tabs": true,
+		// Editor View
+		"show_full_path": true,
+		"show_minimap": false,
+		"highlight_line": true,
+		"fold_buttons": false,
+		"word_wrap": true,
 
-	// Sidebar
-	"file_exclude_patterns":
-	[
-	    ".DS_Store",
-	    "*.pid",
-	    "*.pyc",
-	    "desktop.ini",
-	    "*.lnk",
-		"*.pdf",
-	],
-	"folder_exclude_patterns":
-	[
-		".git",
-		"__pycache__"
-	],
+		// Editor Behavior
+		"find_selected_text": true,
+		"scroll_past_end": false,
+		"highlight_modified_tabs": true,
 
-	// Package Control
-	"ignored_packages":
-	[
-		"Vintage"
-	]
-}
-```
+		// Sidebar
+		"file_exclude_patterns":
+		[
+		    ".DS_Store",
+		    "*.pid",
+		    "*.pyc",
+		    "desktop.ini",
+		    "*.lnk",
+			"*.pdf",
+		],
+		"folder_exclude_patterns":
+		[
+			".git",
+			"__pycache__"
+		],
+
+		// Package Control
+		"ignored_packages":
+		[
+			"Vintage"
+		]
+	}
+
 
 上面的配置使用了`Monokai-Gray`这个配色，这个配色对`Monokai`进行了一些扩展。
 
