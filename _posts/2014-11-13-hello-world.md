@@ -3,6 +3,7 @@ title: Hello, World!
 author: Liao
 layout: post
 permalink:  /hello-world/
+category:
 tags:
   - 杂记
 ---
