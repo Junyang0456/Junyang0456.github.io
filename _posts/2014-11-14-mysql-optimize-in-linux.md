@@ -137,6 +137,8 @@ cache 能加快磁盘写入速度，但磁盘一般会对 cache 内缓存数据�
 
 参考：
 
+[LINUX上MYSQL优化三板斧](http://www.woqutech.com/?p=1200)
+
 [优化Mysql的运行环境(Linux)](http://get.jobdeer.com/910.get)
 
 [Linux performance tuning tips for MySQL](http://www.percona.com/blog/2013/12/07/linux-performance-tuning-tips-mysql/)
