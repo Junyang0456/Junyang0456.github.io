@@ -142,7 +142,7 @@ cache 能加快磁盘写入速度，但磁盘一般会对 cache 内缓存数据�
 - [Linux performance tuning tips for MySQL](http://www.percona.com/blog/2013/12/07/linux-performance-tuning-tips-mysql/)
 - [4 performance fixes to MySQL on large servers](http://openlife.cc/blogs/2011/may/4-performance-fixes-mysql-large-servers)
 
-
+</br></br>
 
 [mysql-swap-insanity]: http://blog.jcole.us/2010/09/28/mysql-swap-insanity-and-the-numa-architecture/ "swap insanity"
 [perl]: https://github.com/yoshinorim/unmap_mysql_logs

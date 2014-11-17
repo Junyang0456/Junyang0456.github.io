@@ -47,20 +47,27 @@ ext2 文件系统组成不再赘述，需要注意的是 ext2 文件系统没有
 ext3 是带有日志功能文件系统，它基于ext2文件系统实现。
 
 - 以一致性的方式写入数据，即使断电或文件系统崩溃，恢复的时间会大大减少
+
 -  数据完整性：在挂载时指定选项 `data=journal` 则可以使日志记录下元数据和文件数据
+
 -  速度：指定挂载选项 `data=writeback` 使用回写的方式写数据
+
 -  灵活性：可以从 ext2 系统升级，而不需要重新格式化文件系统，也可以以非日志模式挂载，就如同 ext2 一样
 
 **ext3的日志模式**
 
 - *journal*，提供最大数据完整性，日志会记录元数据和文件数据
+
 - *ordered*，日志只记录元数据。但是会保证文件数据先被写入，这是默认选项。
+
 - *writeback*，使用回写的方式写数据，只保证记录元数据至日志。
 	
 **其他文件系统**
 
 - *ReiserFS*，ReiserFS是一个快速的日志型文件系统，有着良好的磁盘空间使用和快速的崩溃恢复。属于 Novell 公司，在 SUSE Linux 中使用。
+
 - *JFS (Journal File System)*， JFS 是一个完全 64 位文件系统，可以支持非常大的文件和分区，早先由 IBM 公司为 AIX 操作系统开发，现已使用 GPL 协议开源。JFS适用于非常大的分区和文件如 HPC 或者数据库业务。
+
 - *XFS (eXtended File System)*， 一个高性能的日志型文件系统，和 JFS 比较相似。
  
 
@@ -71,11 +78,17 @@ ext3 是带有日志功能文件系统，它基于ext2文件系统实现。
 上图概括了一次磁盘 write 操作的过程，假设文件已经被从磁盘中读入了 page cache 中
 
 1.  一个用户进程通过 write() 系统调用发起写请求
+
 2.  内核更新对应的 page cache
+
 3.  pdflush 内核线程将 page cache 写入至磁盘中
+
 4.  文件系统层将每一个 block buffer 存放为一个 bio 结构体，并向块设备层提交一个写请求
+
 5.  块设备层从上层接受到请求，执行 IO 调度操作，并将请求放入IO 请求队列中
+
 6.  设备驱动（如 SCSI 或其他设备驱动）完成写操作
+
 7.  磁盘设备固件执行对应的硬件操作，如磁盘的旋转，寻道等，数据被写入到磁盘扇区中
 
 
@@ -107,8 +120,11 @@ Linux 2.4 只使用了一种通用的 IO 算法。到 Linux 2.6 实现了 4 种 
 当一个请求加入到请求队列时，IO 调度器所完成的操作如下
 
 1. 如果队列中存在对相邻扇区的请求，则合并两个请求为一个
+
 2. 如果队列中存在超过过期时间的请求，那么新请求被插入到队列的末尾，以防止饿死老的请求
+
 3. 如果队列中存在可以按扇区地址排序的合适位置，那么将请求插入到这个位置
+
 4. 如果队列中没有合适的可插入位置，请求被插入到队列末尾
 
 
@@ -306,12 +322,16 @@ Linux采用了一个快速的窗口扩张过程
 **将日志放在单独的设备中**
 
 1. 卸载文件系统
+
 2. 查看文件系统块大小和日志参数 </br>
 	`$ dumpe2fs /dev/sdb1`
+
 3. 移除文件系统内部的日志区 </br>
 	`$ tune2fs  -O  ^has_journal  /dev/sdb1`
+
 4. 创建外部的日志设备 </br>
 	`$ mke2fs –O  journal_dev  -b  block-size  /dev/sdc1`
+
 5. 更新原文件系统的超级块 </br>
 	`$ tune2fs  -j  -J  device=/dev/sdc1  /dev/sdb1`
 
@@ -393,7 +413,7 @@ iozone将测试结果放在Excel中
 
 一个例子
 
-`$ iozone -a -s 128M -y 512 -q 16384 -i 0 -i 1 -i 2 -f /test/a.out -Rb /root/ext3_writeback.out`
+    $ iozone -a -s 128M -y 512 -q 16384 -i 0 -i 1 -i 2 -f /test/a.out -Rb /root/ext3_writeback.out
 
 
 ### dd
@@ -535,5 +555,6 @@ nrfiles=8                每个进程生成文件的数量。
 - [RHEL 的 I/O 调度器(Scheduler)与 Database 的关系](http://dbanotes.net/database/rhel_io_scheduler_database.html)
 [I/O Schedulers](http://www.makelinux.net/books/lkd2/ch13lev1sec5)
 
+</br></br>
 
 [IBM]: http://www.redbooks.ibm.com/abstracts/redp4285.html?Open

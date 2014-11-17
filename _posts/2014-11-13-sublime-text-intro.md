@@ -3,7 +3,7 @@ layout: post
 title: "我的 Sublime Text 常用插件"
 description: ""
 category:
-tags: [tools, Python]
+tags: [Tools, Python]
 ---
 {% include JB/setup %}
 
@@ -197,6 +197,8 @@ windows下经常有GBK编码的文本，这个插件可以转为UTF8识别
 - [The Best Plugins for Sublime Text](http://ipestov.com/the-best-plugins-for-sublime-text/)
 - [使用Sublime Text 3做Python开发](http://sw897.github.io/2014/02/13/sublime-text-3-for-python/)
 - [配置sublime打造python编辑器](http://opslinux.com/sublime_python.html)
+
+</br></br>
 
 [ST]: http://www.sublimetext.com/
 [PC]: https://sublime.wbond.net/installation

@@ -3,7 +3,7 @@ layout: post
 title: "JVM 基本指南"
 description: ""
 category: 
-tags: [java, jvm]
+tags: [Java, JVM]
 ---
 {% include JB/setup %}
 
@@ -135,6 +135,6 @@ JVM 的性能取决于它的配置是否与程序的功能特性相匹配。尽�
 - **类数** 即加载类的数量。如果程序动态创建大量的类，可能会导致严重的内存泄漏。
 
 
-
+</br></br>
 
 [JVM]: https://anturis.com/blog/java-virtual-machine-the-essential-guide/
