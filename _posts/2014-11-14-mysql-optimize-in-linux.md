@@ -63,7 +63,7 @@ vm.swappiness 是操作系统使用交换分区的策略，它的值从 0 至 10
 
 我建议设置较小的 swap 分区，并设置 `vm.swappiness=0`, 不要忘了写进 `/etc/sysctl.conf` 永久生效，swap 分区不宜太大是因为如果 vm.swappiness 设置不当可能造成大量的内存交换。
 
-**注意**：Linux Kernel 3.0 之后对 vm.swappiness 设置为 0 时的系统使用交换分区策略进行了调整，系统永远不会使用交换分区，这意味着如果出现内存耗尽，系统将启动 OOM-killer 杀死消耗内存的进程。因此 可以设置`vm.swappiness=1`.
+**注意**：在较新的内核中(2.6.32-303.el6及以后) 对 vm.swappiness 设置为 0 时的系统使用交换分区策略进行了调整，系统永远不会使用交换分区，这意味着如果出现内存耗尽，系统将启动 OOM-killer 杀死消耗内存的进程。因此 可以设置`vm.swappiness=1`.
 
 **再次注意**： Kernel 2.6.28 之前的版本中（如 CentOS 5），有 Bug，不管设置 vm.swappiness 设置为多大，由于内存管理算法的问题，Linux 都有可能会将 MySQL 内存交换至交换分区，如果你经常遇到这种情况，修复的方法是升级你的 kernel，或者考虑使用这个脚本 [A perl script you can run from cron.][perl]
 
