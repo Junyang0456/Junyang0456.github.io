@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "MySQL运行环境优化(Linux)"
+title: "MySQL 运行环境优化(Linux)"
 description: ""
 category:
 tags: [MySQL, 优化]
