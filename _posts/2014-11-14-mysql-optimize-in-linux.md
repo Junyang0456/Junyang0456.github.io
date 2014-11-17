@@ -71,11 +71,11 @@ vm.swappiness 是操作系统使用交换分区的策略，它的值从 0 至 10
 # I/O
 
 
-### IO elevator
+### IO scheduler
 
 针对机械磁盘的特性，Linux 引入了多种 IO 调度器来优化 IO 性能，简单来说优化磁盘读写的策略就是将 IO 请求合并与重排。合并操作是将相邻扇区的 IO 请求合并为一个，重排是将 IO 请求按扇区逻辑地址顺序排列。
 
-Linux2.4 只有一种 IO 调度器，2.6后引入了多种 IO 调度器，这里不多介绍，具体可以参考我的另一片文章——[Linux IO 调度][IO]
+Linux2.4 只有一种 IO 调度器，2.6后引入了多种 IO 调度器，这里不多介绍，具体可以参考我的另一片文章——[Linux 性能优化之 IO 子系统][IO]
 
 Linux 默认使用 IO 调度算法是 CFQ，该算法可能会出现 IO 请求饿死的情况。
 
@@ -137,13 +137,10 @@ cache 能加快磁盘写入速度，但磁盘一般会对 cache 内缓存数据�
 
 参考：
 
-[LINUX上MYSQL优化三板斧](http://www.woqutech.com/?p=1200)
-
-[优化Mysql的运行环境(Linux)](http://get.jobdeer.com/910.get)
-
-[Linux performance tuning tips for MySQL](http://www.percona.com/blog/2013/12/07/linux-performance-tuning-tips-mysql/)
-
-[4 performance fixes to MySQL on large servers](http://openlife.cc/blogs/2011/may/4-performance-fixes-mysql-large-servers)
+- [LINUX上MYSQL优化三板斧](http://www.woqutech.com/?p=1200)
+- [优化Mysql的运行环境(Linux)](http://get.jobdeer.com/910.get)
+- [Linux performance tuning tips for MySQL](http://www.percona.com/blog/2013/12/07/linux-performance-tuning-tips-mysql/)
+- [4 performance fixes to MySQL on large servers](http://openlife.cc/blogs/2011/may/4-performance-fixes-mysql-large-servers)
 
 
 
@@ -151,7 +148,7 @@ cache 能加快磁盘写入速度，但磁盘一般会对 cache 内缓存数据�
 [perl]: https://github.com/yoshinorim/unmap_mysql_logs
 [pdf]: http://en.oreilly.com/mysql2011/public/schedule/detail/17111
 [scripts]: http://www.askapache.com/mysql/performance-tuning-mysql.html
-[IO]: http://liaoph.com
+[IO]: http://liaoph.com/linux-system-io/#io
 
 
 
