@@ -3,7 +3,7 @@ layout: post
 title: "MySQL 运行环境优化(Linux)"
 description: ""
 category:
-tags: [MySQL, 优化]
+tags: [MySQL, 优化, 操作系统]
 ---
 {% include JB/setup %}
 
