@@ -1,5 +1,4 @@
-/* Tomorrow Theme */
-/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+/* GitHub Theme */
 .prettyprint {
   background: white;
   font-family: Menlo, 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco, Consolas, monospace;
@@ -10,64 +9,64 @@
 }
 
 .pln {
-  color: #4d4d4c;
+  color: #333333;
 }
 
 @media screen {
   .str {
-    color: #718c00;
+    color: #dd1144;
   }
 
   .kwd {
-    color: #8959a8;
+    color: #333333;
   }
 
   .com {
-    color: #8e908c;
+    color: #999988;
   }
 
   .typ {
-    color: #4271ae;
+    color: #445588;
   }
 
   .lit {
-    color: #f5871f;
+    color: #445588;
   }
 
   .pun {
-    color: #4d4d4c;
+    color: #333333;
   }
 
   .opn {
-    color: #4d4d4c;
+    color: #333333;
   }
 
   .clo {
-    color: #4d4d4c;
+    color: #333333;
   }
 
   .tag {
-    color: #c82829;
+    color: navy;
   }
 
   .atn {
-    color: #f5871f;
+    color: teal;
   }
 
   .atv {
-    color: #3e999f;
+    color: #dd1144;
   }
 
   .dec {
-    color: #f5871f;
+    color: #333333;
   }
 
   .var {
-    color: #c82829;
+    color: teal;
   }
 
   .fun {
-    color: #4271ae;
+    color: #990000;
   }
 }
 @media print, projection {
