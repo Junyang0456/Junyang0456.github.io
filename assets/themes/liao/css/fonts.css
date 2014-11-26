@@ -27,3 +27,16 @@
     font-style: normal;
 
 }
+
+@font-face {
+    font-family: 'dancing';
+    src: url('../fonts/dancingscript-bold.eot');
+    src: url('../fonts/dancingscript-bold.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/dancingscript-bold.woff2') format('woff2'),
+         url('../fonts/dancingscript-bold.woff') format('woff'),
+         url('../fonts/dancingscript-bold.ttf') format('truetype'),
+         url('../fonts/dancingscript-bold.svg#dancing_scriptbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
