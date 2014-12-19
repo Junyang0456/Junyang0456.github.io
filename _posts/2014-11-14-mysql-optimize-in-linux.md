@@ -31,15 +31,15 @@ NUMA, Non-Uniform Memory Access，非一致性内存访问，这种架构下，�
 
 每个 CPU 都有自己的运行队列，内核会平衡各个内存的运行队列(rebalancing)，当0号CPU的运行进程被调度至1号 CPU 的运行队列中，由于进程需要原来的数据，那么1号 CPU 就有可能需要访问0号 CPU 的专用内存（请求0号CPU的内存控制器），此时需要跨越 CPU 插槽，需要多个 CPU 时钟周期。
 
-在 NUMA 结构下，应该尽可能的保证 CPU 至访问自身的内存，常用的方法是进程绑定（CPU affinity）
+在 NUMA 结构下，应该尽可能的保证 CPU 至访问自身的内存，常用的方法是进程绑定（CPU affinity）。
 
 两种架构的图示：
 
 ![](/images/mysql-optimize-in-linux/smp-numa.png)
 
-NUMA架构不适合用于运行数据库服务，由于每个 CPU 使用自身的内存，因此可能出现一个 CPU 的内存使用完，而另一个 CPU 的内存有大量剩余，造成内存资源的浪费，甚至可能出现内存有较多剩余 CPU 系统却一直使用 swap 空间的情况（具体可参见 [MySQL "swap insanity"][mysql-swap-insanity]）。
+NUMA 架构不适合用于运行数据库服务，由于每个 CPU 使用自身的内存，因此可能出现一个 CPU 的内存使用完，而另一个 CPU 的内存有大量剩余，造成内存资源的浪费，甚至可能出现内存有较多剩余，系统却一直使用 swap 空间的情况（具体可参见 [MySQL "swap insanity"][mysql-swap-insanity]）。
 
-NUMA架构的内存分配方式可以设置，但最简单的方式是关闭 NUMA 特性。
+NUMA 架构的内存分配方式可以设置，但最简单的方式是关闭 NUMA 特性。
 
 可以使用 `numastat` 或 `numastat -p <PID>` 查看 NUMA 结构 CPU 内存访问状态
 
@@ -57,11 +57,11 @@ NUMA架构的内存分配方式可以设置，但最简单的方式是关闭 NUM
 
 ### vm.swappiness
 
-vm.swappiness 是操作系统使用交换分区的策略，它的值从 0 至 100，系统默认值为 60. 值为 0 表示尽量少使用 swap, 100 表示尽量将 inactive 的内存页交换出去。当系统内存使用到一定量时，系统就根据这个参数判断是否使用交换分区。
+vm.swappiness 是操作系统使用交换分区的策略，它的值从 0 至 100，系统默认值为 60. 值为 0 表示尽量少使用 swap，100 表示尽量将 inactive 的内存页交换出去。当系统内存使用到一定量时，系统就根据这个参数判断是否使用交换分区。
 
-由于使用 swap 会导致数据库性能急剧下降，有人建议不使用 swap，这样是比较危险的，因为当系统出现 OOM(Out Of Memory) 时，系统会启动OOM-killer, 有可能杀死 MySQL 进程，造成业务中断，甚至丢失数据。
+由于使用 swap 会导致数据库性能急剧下降，有人建议不使用 swap，这样是比较危险的，因为当系统出现 OOM(Out Of Memory) 时，系统会启动OOM-killer，有可能杀死 MySQL 进程，造成业务中断，甚至丢失数据。
 
-我建议设置较小的 swap 分区，并设置 `vm.swappiness=0`, 不要忘了写进 `/etc/sysctl.conf` 永久生效，swap 分区不宜太大是因为如果 vm.swappiness 设置不当可能造成大量的内存交换。
+我建议设置较小的 swap 分区，并设置 `vm.swappiness=0`，不要忘了写进 `/etc/sysctl.conf` 永久生效，swap 分区不宜太大是因为如果 vm.swappiness 设置不当可能造成大量的内存交换。
 
 **注意**：在较新的内核中(2.6.32-303.el6及以后) 对 vm.swappiness 设置为 0 时的系统使用交换分区策略进行了调整，系统永远不会使用交换分区，这意味着如果出现内存耗尽，系统将启动 OOM-killer 杀死消耗内存的进程。因此 可以设置`vm.swappiness=1`.
 
@@ -126,7 +126,7 @@ cache 能加快磁盘写入速度，但磁盘一般会对 cache 内缓存数据�
 
 - CPU 方面，禁用 NUMA
 - 内存方面，设置 vm.swappiness=0
-- IO 方面，使用 deadline 或者 noop 调度策略，使用 noatime, nobarrier 挂载文件系统
+- IO 方面，使用 deadline 或者 noop 调度策略，使用 noatime，nobarrier 挂载文件系统
 
 </br>
 深入了解 MySQL 在操作系统方面的调优，可以阅读这个 PDF —— [Linux and H/W optimizations for MySQL][pdf]
