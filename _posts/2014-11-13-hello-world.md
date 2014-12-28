@@ -7,6 +7,7 @@ category:
 tags:
   - 杂记
 ---
+{% include JB/setup %}
 
 折腾了几天，终于初步搭建好了！
 
