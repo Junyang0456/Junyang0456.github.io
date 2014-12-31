@@ -15,8 +15,6 @@ group: "navigation"
 
 化学专业，离经叛道至 IT 行业 <br/>
 Linux, Python, MySQL 初学者<br/>
-在运维的路上<br/>
-专心于技术，希望能一直从事技术工作
 
 * [twitter][twitter]
 * [weibo][weibo]
