@@ -96,7 +96,7 @@ sublime text 是一款跨平台的编辑器，安装插件方便，界面相当�
 在Sublime中按<code>ctrl + `</code>，复制下面的代码，回车，即可安装 Package Control, 这里我的Sublime版本是 ST3，如果是ST2，可以去 [Package Control][PC] 这个网站获取安装代码。
 
 ```python
-import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)
+import urllib.request,os,hashlib; h = '2deb499853c4371624f5a07e27c334aa' + 'bf8c4e67d14fb0525ba4f89698a6d7e1'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)
 ```
 
 安装完成后，使用`ctrl+shift+p`可以调出命令面板，输入ip就可以看到安装包的指令了。
@@ -175,7 +175,7 @@ windows下经常有GBK编码的文本，这个插件可以转为UTF8识别
 格式化 HTML/XML 文本，选中要格式化的文本，使用快捷键`ctrl+alt+f`就可以格式化了。
 
 
-## nginx, Puppet, SaltStack-related
+## nginx, Puppet, SaltStack-related, Ansible
 
 这三个插件是语法高亮插件，做运维的可能会需要。
 
