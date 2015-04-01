@@ -29,8 +29,6 @@ egrep 命令相当于 `grep -E` ，使用[GNU Extended Regular Expressions synta
 
 fgrep 命令相当于 `grep -F` ，不使用任何正则表达式，直接进行字符串匹配。
 
-![](/images/hello-world/hello-world.png)
-
 ## Grep 命令的语法
 
 	grep [OPTIONS] PATTERN [FILE...]
