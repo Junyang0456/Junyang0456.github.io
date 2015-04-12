@@ -293,7 +293,7 @@ pre/post install 表示在安装之前或之后；pre/post uninstall 表示在�
 `rpm {-K|--checksig} PACKAGE_FILE`
 
 ### RPM 管理器的数据库
-RPM 软件包会将一些元信息存储在它的数据库中，数据库位于 `/var/lib/rpm` 目录中。如果 RPM 的数据库损坏，一些功能将无法正常使用。
+在安装RPM 软件包是，rpm 命令会将一些元信息存储在它的数据库中，以供 rpm 命令查询软件包的相关信息使用，数据库文件位于 `/var/lib/rpm` 目录中。如果 RPM 的数据库损坏，将会导致一些 RPM 数据丢失，一些功能将无法正常使用。
 
 	[root@localhost rpm]# ls /var/lib/rpm/
 	Basenames     __db.004     Name            Pubkeys         Triggername
