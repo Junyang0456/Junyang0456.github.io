@@ -68,7 +68,7 @@ pre/post install 表示在安装之前或之后；pre/post uninstall 表示在�
 
 安装时可以使用 `-h` 显式安装进度，使用 `-v` 显示详细信息。
 
-	[root@localhost ~]# rpm -ivh httpd-2.2.15-39.el6.centos.x86_64.rpm 
+	[root@localhost ~]# rpm -ivh httpd-2.2.15-39.el6.centos.x86_64.rpm
 	Preparing...                ########################################### [100%]
 	   1:httpd                  ########################################### [100%]
 
@@ -95,16 +95,16 @@ pre/post install 表示在安装之前或之后；pre/post uninstall 表示在�
 
 示例：安装并升级 zsh 软件包
 
-	[root@localhost rpm]# rpm -ivh zsh-4.3.10-7.el6.x86_64.rpm 
+	[root@localhost rpm]# rpm -ivh zsh-4.3.10-7.el6.x86_64.rpm
 	Preparing...                ########################################### [100%]
 	   1:zsh                    ########################################### [100%]
-	[root@localhost rpm]# rpm -Uvh zsh-4.3.10-9.el6.x86_64.rpm 
+	[root@localhost rpm]# rpm -Uvh zsh-4.3.10-9.el6.x86_64.rpm
 	Preparing...                ########################################### [100%]
 	   1:zsh                    ########################################### [100%]
 
 如果想要将软件包降级到旧版本，使用 `--oldpackage` 选项
 
-	[root@localhost rpm]# rpm -Uvh --oldpackage zsh-4.3.10-7.el6.x86_64.rpm 
+	[root@localhost rpm]# rpm -Uvh --oldpackage zsh-4.3.10-7.el6.x86_64.rpm
 	Preparing...                ########################################### [100%]
 	   1:zsh                    ########################################### [100%]
 
@@ -227,13 +227,13 @@ pre/post install 表示在安装之前或之后；pre/post uninstall 表示在�
 	else
 	    grep -q "^/bin/zsh$" /etc/shells || echo "/bin/zsh" >> /etc/shells
 	fi
-	
+
 	if [ -f /usr/share/info/zsh.info.gz ]; then
 	# This is needed so that --excludedocs works.
 	/sbin/install-info /usr/share/info/zsh.info.gz /usr/share/info/dir \
 	  --entry="* zsh: (zsh).			An enhanced bourne shell."
 	fi
-	
+
 	:
 	preuninstall scriptlet (using /bin/sh):
 	if [ "$1" = 0 ] ; then
@@ -276,7 +276,7 @@ pre/post install 表示在安装之前或之后；pre/post uninstall 表示在�
 	U 属主
 	G 属组
 	T 文件的 mtime
-	P caPabilities 
+	P caPabilities
 
 **程序包的合法性验证**
 
@@ -293,25 +293,44 @@ pre/post install 表示在安装之前或之后；pre/post uninstall 表示在�
 `rpm {-K|--checksig} PACKAGE_FILE`
 
 ### RPM 管理器的数据库
-在安装RPM 软件包是，rpm 命令会将一些元信息存储在它的数据库中，以供 rpm 命令查询软件包的相关信息使用，数据库文件位于 `/var/lib/rpm` 目录中。如果 RPM 的数据库损坏，将会导致一些 RPM 数据丢失，一些功能将无法正常使用。
+每次安装 rpm 包时，rpm 系统会将一些元信息存储在它的数据库中，使用 `rpm -q` 命令查询软件包的相关信息时将会查询这些数据库，数据库文件位于 `/var/lib/rpm` 目录中。如果 RPM 的数据库损坏，将会导致一些 RPM 数据丢失，一些功能将无法正常使用。
 
-	[root@localhost rpm]# ls /var/lib/rpm/
-	Basenames     __db.004     Name            Pubkeys         Triggername
-	Conflictname  Dirnames     Obsoletename    Requirename
-	__db.001      Filedigests  Packages        Requireversion
-	__db.002      Group        Providename     Sha1header
-	__db.003      Installtid   Provideversion  Sigmd5
+	[root@bogon ~]# file /var/lib/rpm/*
+	/var/lib/rpm/Basenames:      Berkeley DB (Hash, version 9, native byte-order)
+	/var/lib/rpm/Conflictname:   Berkeley DB (Hash, version 9, native byte-order)
+	/var/lib/rpm/__db.001:       Applesoft BASIC program data
+	/var/lib/rpm/__db.002:       386 pure executable
+	/var/lib/rpm/__db.003:       386 pure executable not stripped
+	/var/lib/rpm/__db.004:       386 pure executable
+	/var/lib/rpm/Dirnames:       Berkeley DB (Btree, version 9, native byte-order)
+	/var/lib/rpm/Filedigests:    Berkeley DB (Hash, version 9, native byte-order)
+	/var/lib/rpm/Group:          Berkeley DB (Hash, version 9, native byte-order)
+	/var/lib/rpm/Installtid:     Berkeley DB (Btree, version 9, native byte-order)
+	/var/lib/rpm/Name:           Berkeley DB (Hash, version 9, native byte-order)
+	/var/lib/rpm/Obsoletename:   Berkeley DB (Hash, version 9, native byte-order)
+	/var/lib/rpm/Packages:       Berkeley DB (Hash, version 9, native byte-order)
+	/var/lib/rpm/Providename:    Berkeley DB (Hash, version 9, native byte-order)
+	/var/lib/rpm/Provideversion: Berkeley DB (Btree, version 9, native byte-order)
+	/var/lib/rpm/Pubkeys:        Berkeley DB (Hash, version 9, native byte-order)
+	/var/lib/rpm/Requirename:    Berkeley DB (Hash, version 9, native byte-order)
+	/var/lib/rpm/Requireversion: Berkeley DB (Btree, version 9, native byte-order)
+	/var/lib/rpm/Sha1header:     Berkeley DB (Hash, version 9, native byte-order)
+	/var/lib/rpm/Sigmd5:         Berkeley DB (Hash, version 9, native byte-order)
+	/var/lib/rpm/Triggername:    Berkeley DB (Hash, version 9, native byte-order)
+
+可以看到这里有很多 Berkeley DB 格式的数据库文件和几个 __db 数据文件。
 
 **重建数据库**
 
-`rpm {--initdb|--rebuilddb} [-v] [--dbpath DIRECTORY]`
+如果 RPM 的数据库损坏，首先可以尝试重建它，如果无法重建，那么需要重新初始化数据库。
 
-`rpm --initdb` 用于初始化数据库
+`rpm --rebuilddb`  表示重建数据库
 
-`rpm --rebuilddb` 表示无论当前数据存在与否，都会直接重建此库
+这个命令会从已安装的软件包提取信息重建数据库，它从 `/var/lib/rpm/Packages` 这个文件中提取信息，其他所有的数据库文件都可以由这个文件重建。如果 RPM 的数据库是完好的，这个命令不会重建，而是对数据库中未使用的条目进行空间回收。
 
+`rpm --initdb`  创建一个新的 RPM 数据
 
-
+如果已经没有其他别的办法了，`--initdb` 会创建一个新的空的 RPM 数据库。由于新建的数据库是空的，不要万不得已不要使用这个命令。
 
 
 
