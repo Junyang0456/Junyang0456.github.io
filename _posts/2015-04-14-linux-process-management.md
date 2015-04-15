@@ -1,8 +1,8 @@
 ---
-title: Linux 基础 —— 理解 Linux 进程
+title: Linux 基础 —— Linux 进程的管理与监控
 author: Liao
 layout: post
-permalink:  /understand-linux-process/
+permalink:  /inux-process-management/
 category:
 tags:
   - Basic
@@ -11,10 +11,11 @@ tags:
 
 这篇文章主要讲 Linux 中进程的概念和进程的管理工具。
 
-<!--more-->
-
+## 进程的概念
 ### 什么是进程
 进程（Process）是计算机中程序执的实体。程序通常是由指令和相关数据组成的，在 Linux 系统中，程序的运行通常是由用户通过一个命令行解释器（例如 bash shell）发起执行，或者由其他进程派生而来。
+
+<!--more-->
 
 ### 进程标识符
 每个进程都有一个非负整数表示的唯一标识符，进程运行时 PID 是由操作系统随机分配的，进程 ID 可以重用。当一个进程终止后，其进程 ID 就可以再次使用了。大多数 UNIX 系统实现延迟重用算法，使得赋予新建进程的 ID 不同于最近终止进程所使用的 ID。
@@ -55,7 +56,7 @@ tags:
 
 每一个进程都运行在它自己的内存沙箱（sandbox）中。这个沙箱被称作「虚拟地址空间」（virtual address space），在 32 位的系统中，它是一个 4GB 大小的内存地址空间，虚拟内存是线性可编址的，其使用单位是页（page），对应的物理内存被称为页框（page frame）。这些虚拟的地址通过页表（page table）映射至真实的物理内存，页表由操作系统内核和处理器（内存管理单元）负责管理。每个进程都有它自己的页表。这里需要注意，所有的进程都运行在「虚拟内存」中，即使是内核本身也一样。因此，虚拟地址空间中的一部分是专门供内核使用的。
 
-![](/images/understand-linux-process/virtual_address.jpg)
+![](/images/linux-process-management/virtual_address.jpg)
 
 Linux 系统中虚拟地址空间中的最高地址的 1GB 为内核空间（kernel space），但这并不意味着内核实际使用了这么多物理内存。在页表中，内核空间被标记为特权指令（privileged code，CPU 的 ring 0）专用，因此一个普通进程在访问时会产生页错误（page fault）。对于所有的进程来说，虚拟地址空间中的内核空间都被映射至相同的物理内存地址，而每个进程的用户空间被映射至物理内存地址的情况都不相同。
 
@@ -71,7 +72,7 @@ Linux 系统中虚拟地址空间中的最高地址的 1GB 为内核空间（ker
 ### 进程的状态
 系统中可能存在大量进程，而 CPU 的数量是有限的，因此进程并不一定处于运行状态。在 Linux 系统中，进程有下面这些状态：
 
-![](/images/understand-linux-process/process_status.png)
+![](/images/linux-process-management/process_status.png)
 
 **Executing:** 进程正在 CPU 上运行。
 
@@ -88,7 +89,7 @@ Linux 系统中虚拟地址空间中的最高地址的 1GB 为内核空间（ker
 ### 进程描述符
 为了管理进程，内核需要追踪每个进程的运行状态，例如进程的优先级，PID，进程的地址空间等信息。内核使用一个 task_struct 类型的结构体来保存这些信息，它被称为进程描述符，对于每个进程，内核都为其创建一个进程描述符，内核使用双向链表的结构来存储这些进程描述符。
 
-![](/images/understand-linux-process/process_descriptor.jpg)
+![](/images/linux-process-management/process_descriptor.jpg)
 
 ### 进程的产生方式
 进程不是凭空创建的，每个进程都是由其父进程衍生而来，在 Linux 系统中，父进程通常使用 `fork()` ， `vfork()` 或 `clone()` 等系统调用来生成子进程。
@@ -122,6 +123,96 @@ Linux 系统对每种优先级都维护一个运行队列和过期队列，系�
 ### 守护进程
 守护进程（Daemon）是一种后台服务进程，它们通常不与终端关联，用户空间守护进程的父进程是 init 进程。Linux 中的很多服务都以守护进程模式运行，它们不会随着终端的退出和登录而改变进程状态。
 
+## 进程的管理与监控
+### htop
+Htop 是 Linux 系统中的一个交互式的系统监控和进程查看工具，它被设计用来取代传统的 Unix 系统监控工具 top。Htop 的界面更加直观，功能更加强大，实乃居家旅行杀人越货的必备神器。
 
+在 CentOS/RHEL 系统中，htop 由 epel 提供安装，安装后的启动界面如下：
 
+![](/images/linux-process-management/htop.jpg)
 
+最上方，htop 提供了 CPU，内存和 Swap 的使用状态，并用不同颜色标识出了不同类型的 CPU 或 内存使用情况，各颜色的意义如下：
+
+![](/images/linux-process-management/htop-cpu.jpg)
+
+右上方，htop 提供了系统中运行的所有任务数量，1分钟，5分钟和15分钟的平均负载，系统的启动时长信息。
+
+界面的中间是进程的相关信息，htop 默认按 CPU 使用率对进程进行排序。这里各个字段的意义如下：
+
+	PID：进程 ID
+	USER：运行进程的用户身份
+	PRI：进程的优先级
+	NI： 进程的 NICE 值，这个值从 -20 ~ 19，数值越小优先级越高
+	VIRT：进程的虚拟内存使用量
+	RES：进程的实际物理内存使用量
+	SHR：进程的内存中使用的共享内存映射的区域大小
+	S：进程的状态
+	CPU%：进程的 CPU 使用率
+	MEM%：进程的内存使用率
+	TIME+：进程占用 CPU 的累积时长
+	Command：进程的启动指令
+
+htop 还可以使用交互式的命令
+
+	u：过滤仅显式指定用户的进程
+	s：追踪选定进程的系统调用（类似于 strace 的功能）
+	l：显式选定进程打开的所有文件（类似与 lsof 的功能）
+	t：显示进程结构
+	a：设定进程的 CPU affinity，可以将进程绑定在指定的 CPU 上
+	
+在最下方 htop 还提供了 F1 ~ F10 十个按键，分别提供了帮助，设置，过滤，搜索，调整进程优先级，kill 进程等功能。
+
+值得一说的是 htop 甚至还支持使用鼠标点击操作。
+
+### glances
+glances 是一款用 Python 开发的系统状态监控工具，它的监控指标也特别的丰富。在 CentOS 系统中由 epel 提供安装。
+
+glances 的界面如下：
+
+![](/images/linux-process-management/glances.jpg)
+
+这里显示了系统的 CPU使用率，平均负载，内存使用情况，Swap 使用情况，网络接口流量速率，磁盘 I/O 速率，挂载分区的空间使用率以及进程状态等信息。
+
+glances 可以使用交互式命令打开和关闭某类监控，改变监控指标单位，改变进程排序列。
+
+	a：自动对进程排序
+	c：根据 CPU 使用率对进程排序
+	m：根据内存使用率对进程排序
+	i：根据 I/O 速率对进程排序
+	d：关闭/开启 磁盘 I/O 状态信息
+	f：关闭/开启 文件系统状态信息
+	1：全局 CPU 状态 / 单个显示 CPU 状态
+	u：显示网络接口的累积流量
+
+### dstat
+dstat 是一款功能非常强大的系统性能监控工具，它整合了 vmstat，iostat，netstat 和 ifstat 四款工具的功能。
+
+dstat 常用的选项：
+
+	-c: 显示cpu性能指标相关的统计数据
+	-d: 显示disk相关的速率数据
+	-g: 显示page相关的速率数据
+	-i: 显示interrupt相关的速率数据
+	-l: 显示load average相关的统计数据
+	-m: 显示memory相关的统计数据
+	-n: 显示网络收发数据的速率
+	-p: 显示进程相关的统计数据
+	-r: io请求的速率
+	-s: 显示swap的相关数据
+	-y: 显示系统相关的数据，包括中断和进程切换
+	
+	--top-cpu：显示最占用CPU的进程
+	--top-bio：显示最消耗block io的进程
+	--top-io：最占用io的进程
+	--top-mem：显示最占用内存的进程
+	
+	--ipc: 显示进程间通信相关的速率数据
+	--raw: 显示raw套接的相关的数据
+	--tcp: 显示tcp套接字的相关数据
+	--udp: 显示udp套接字的相关数据
+	--unix: 显示unix sock接口相关的统计数据
+	--socket: 显示所有类型套接字的相关数据
+	
+	-a: 相当于-cdngy
+
+dstat 还可以支持插件工作，它的插件位于 `/usr/share/dstat` 目录中，可以使用这些插件对 mysql 等程序进行监控。
