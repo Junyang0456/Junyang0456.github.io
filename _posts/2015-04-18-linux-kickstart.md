@@ -14,6 +14,8 @@ tags:
 
 在安装系统之前，计算机的硬件上可能是没有操作系统的，因此为了能够运行安装程序，需要一个临时的操作系统，引导开机，启动安装程序，在使用光盘安装操作 linux 系统（这里特指 RHEL 系列的系统）时，一共有两个阶段，分别为引导和安装。
 
+<!--more-->
+
 ### Stage 1
 使用光盘引导时，系统启动过程为 POST(加电自检) ---> BIOS 进行硬件检测并载入光盘的 MBR ---> 光盘的引导程序为 isolinux.bin，它根据 isolinux.cfg 生成一个菜单。当用户选择安装操作系统后，引导程序加载内核（vmlinuz）和 initrd.img 文件，initrd.img 会在内存中生成一个临时的操作系统，为安装过程提供一个安装环境。当系统切换至 initrd 文件系统后，initrd.img 中的 init 进程调用 /sbin/loader 程序，loader 探测安装介质，加载光盘 /images/stage2.img (在 RHEL6 中叫 install.img )，切换到 stage2，stage2.img 的文件系统类型是 suqashfs，安装系统的程序 anaconda 就包含其中。
 
