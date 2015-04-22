@@ -2,7 +2,7 @@
 title: Linux 基础 —— Linux Kickstart 自动安装
 author: Liao
 layout: post
-permalink:  /inux-kcikstart/
+permalink:  /linux-kcikstart/
 category:
 tags:
   - Basic
