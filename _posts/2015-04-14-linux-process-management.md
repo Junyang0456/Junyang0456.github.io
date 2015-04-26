@@ -6,6 +6,7 @@ permalink:  /inux-process-management/
 category:
 tags:
   - Basic
+  - Process
 ---
 {% include JB/setup %}
 
@@ -162,7 +163,7 @@ htop 还可以使用交互式的命令
 	l：显式选定进程打开的所有文件（类似与 lsof 的功能）
 	t：显示进程结构
 	a：设定进程的 CPU affinity，可以将进程绑定在指定的 CPU 上
-	
+
 在最下方 htop 还提供了 F1 ~ F10 十个按键，分别提供了帮助，设置，过滤，搜索，调整进程优先级，kill 进程等功能。
 
 值得一说的是 htop 甚至还支持使用鼠标点击操作。
@@ -203,19 +204,19 @@ dstat 常用的选项：
 	-r: io请求的速率
 	-s: 显示swap的相关数据
 	-y: 显示系统相关的数据，包括中断和进程切换
-	
+
 	--top-cpu：显示最占用CPU的进程
 	--top-bio：显示最消耗block io的进程
 	--top-io：最占用io的进程
 	--top-mem：显示最占用内存的进程
-	
+
 	--ipc: 显示进程间通信相关的速率数据
 	--raw: 显示raw套接的相关的数据
 	--tcp: 显示tcp套接字的相关数据
 	--udp: 显示udp套接字的相关数据
 	--unix: 显示unix sock接口相关的统计数据
 	--socket: 显示所有类型套接字的相关数据
-	
+
 	-a: 相当于-cdngy
 
 dstat 还可以支持插件工作，它的插件位于 `/usr/share/dstat` 目录中，可以使用这些插件对 mysql 等程序进行监控。

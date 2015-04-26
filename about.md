@@ -13,8 +13,10 @@ group: "navigation"
 
 <img src="/images/code.jpg" width="50%"  height="50%" >
 
-化学专业，离经叛道至 IT 行业 <br/>
-Linux, Python, MySQL 初学者<br/>
+化学专业，离经叛道至 IT 行业，Linux newbie，目标是成为一名 Linux Guru<br/>
+
+Focus on: Linux, Python, MySQL<br/>
+Profession: Linux SA<br/>
 
 * [twitter][twitter]
 * [weibo][weibo]
