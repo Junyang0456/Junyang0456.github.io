@@ -22,7 +22,7 @@ tags:
 
 假设 CPU 运行正常。在一个多处理器或者多核系统中，会动态的选择一个 CPU 作为自举处理器（bootstrap processor, BSP），由这颗 CPU 来运行所有的 BIOS 和内核初始化代码。这时候其他的处理器被称作应用程序处理器（application processor, AP），它们会保持停止的状态，直到被内核激活运行。Intel CPU 已经发展了很多年了，但是仍然是完全向后兼容的，因此现代的 CPU 仍可以像古老的 [Intel 8086](http://en.wikipedia.org/wiki/Intel_8086) 那样运行，它们在启动后也确实是这样运行的。在启动状态时，CPU 运行在[真实模式（real mode）](http://en.wikipedia.org/wiki/Real_mode) 下，内存[分页](http://en.wikipedia.org/wiki/Paging)是被关闭的。这就像古老的 MS-DOS 系统一样，只有 1MB 的内存可以被寻址，任何代码都可以对内存的任何地址进行写入 —— 这时还没有保护模式或者权限级别的概念。
 
-CPU 中的大多数的[寄存器](http://en.wikipedia.org/wiki/Processor_register) 在启动后会有预定义好的值，包括指令寄存器（instruction pointer, EIP），它保存有 CPU 执行指令的内存地址。Intel CPU 使用了一个黑科技手段，虽然启动时只有 1MB 的内存可以被寻址，一个隐藏的基地址（本质上，是一个偏移量）被放入了 EIP 中，因此第一条指令的内存地址是 0xFFFFFFF0 （4 GB 内存的最后 16 字节，这显然超出了 1MB 的范围）。这个魔法地址被称作[复位向量（reset vector）]，它已经是现代 Intel CPU 的一个标准。
+CPU 中的大多数的[寄存器](http://en.wikipedia.org/wiki/Processor_register) 在启动后会有预定义好的值，包括指令寄存器（instruction pointer, EIP），它保存有 CPU 执行指令的内存地址。Intel CPU 使用了一个黑科技手段，虽然启动时只有 1MB 的内存可以被寻址，一个隐藏的基地址（本质上，是一个偏移量）被放入了 EIP 中，因此第一条指令的内存地址是 0xFFFFFFF0 （4 GB 内存的最后 16 字节，这显然超出了 1MB 的范围）。这个魔法地址被称作[复位向量（reset vector）](http://en.wikipedia.org/wiki/Reset_vector)，它已经是现代 Intel CPU 的一个标准。
 
 主板确保复位向量的指令是跳转（jump）到映射至 BIOS 入口点的内存地址。这个跳转隐藏了启动时的基地址的存在。主板芯片的[内存映射](http://liaoph.com/motherboard-and-memory-map/)使得这些内存位置都有着与 CPU 指令向匹配的映射内容。跳转后的内存地址被映射到了包含有 BIOS 的闪存中，这时候内存中的还是完全无意义的内容。下面是相关的内存区域示例图：
 
