@@ -1,11 +1,11 @@
 ---
-title: 深入计算机原理 —— 主板芯片和内存映射
+title: 计算机原理 —— 主板芯片和内存映射
 author: Liao
 layout: post
 permalink:  /motherboard-and-memory-map/
 category:
 tags:
-  - 深入计算机原理
+  - 计算机原理
   - 翻译
 ---
 {% include JB/setup %}
@@ -18,7 +18,7 @@ tags:
 
 ![](/images/motherboard-and-memory-map/motherboard.png)
 
-<!--more>
+<!--more-->
 
 上图中需要注意的是，CPU 本身并不知道它与什么设备连接在一起。它通过它的[针脚（pins）](http://en.wikipedia.org/wiki/Image:Intel_80486DX2_bottom.jpg) 与外界通信，但是它并不关心外面是谁在与它通信。与之相连的可能是计算机的主板，但也可以是一台烤面包机，路由器，或者其他什么。CPU 主要通过三种方式与外界通信：内存地址空间，I/O 地址空间和中断。我们现在只讨论关于主板和内存的内容。
 
