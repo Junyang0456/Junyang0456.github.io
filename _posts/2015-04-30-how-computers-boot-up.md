@@ -28,7 +28,7 @@ CPU 中的大多数的[寄存器](http://en.wikipedia.org/wiki/Processor_registe
 
 ![](/images/how-computers-boot-up/memory-map.png)
 
-接着 CPU 开始执行 BIOS 代码，进行一些硬件的初始化。随后 BIOS 进行 [加电自检](http://en.wikipedia.org/wiki/Power_on_self_test)（Power-on Self Test, POST），测试计算机的各个组件。如果缺少显式芯片，POST 会失败，导致 BIOS 停止并发出警告声。如果显式芯片工作正常，屏幕上会打印出制造厂商的 logo，并开始进行内存检测。其他类型的 POST 失败，如缺少键盘，则会导致屏幕上显式错误信息。POST 设计了硬件检测和初始化，包括对资源进行分类 —— 中断，内存范围，I/O 端口等。现代的 BIOS 遵照[高级配置和电源管理接口（Advanced Configuration and Power Interface）](http://en.wikipedia.org/wiki/ACPI)构建出描述计算机中的设备的数据表，这些数据表之后会被内核使用。
+接着 CPU 开始执行 BIOS 代码，进行一些硬件的初始化。随后 BIOS 进行 [加电自检](http://en.wikipedia.org/wiki/Power_on_self_test)（Power-on Self Test, POST），测试计算机的各个组件。如果缺少显式芯片，POST 会失败，导致 BIOS 停止并发出警告声。如果显式芯片工作正常，屏幕上会打印出制造厂商的 logo，并开始进行内存检测。其他类型的 POST 失败，如缺少键盘，则会导致屏幕上显示错误信息。POST 设计了硬件检测和初始化，包括对资源进行分类 —— 中断，内存范围，I/O 端口等。现代的 BIOS 遵照[高级配置和电源管理接口（Advanced Configuration and Power Interface）](http://en.wikipedia.org/wiki/ACPI)构建出描述计算机中的设备的数据表，这些数据表之后会被内核使用。
 
 加电自检过后 BIOS 需要启动操作系统了，它必须从某种介质中搜寻：硬盘，CD-ROM，软盘等等。BIOS 寻找的顺序可以由用户配置。如果没有可启动的设备，BIOS 会停止并显式错误，例如 "Non-Systme Disk or Disk Error"。这种症状通常是硬盘损坏了。BIOS 找到一个可启动的硬盘后会从硬盘开始启动。
 
