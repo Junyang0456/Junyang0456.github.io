@@ -1,5 +1,5 @@
 ---
-title: 计算机原理 —— 主板芯片和内存映射
+title: 计算机原理 —— 主板与内存映射
 author: Liao
 layout: post
 permalink:  /motherboard-and-memory-map/
