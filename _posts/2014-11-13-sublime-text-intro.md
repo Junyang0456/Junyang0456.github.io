@@ -96,7 +96,7 @@ sublime text 是一款跨平台的编辑器，安装插件方便，界面相当�
 在Sublime中按<code>ctrl + `</code>，复制下面的代码，回车，即可安装 Package Control, 这里我的Sublime版本是 ST3，如果是ST2，可以去 [Package Control][PC] 这个网站获取安装代码。
 
 ```python
-import urllib.request,os,hashlib; h = '2deb499853c4371624f5a07e27c334aa' + 'bf8c4e67d14fb0525ba4f89698a6d7e1'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)
+import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)
 ```
 
 安装完成后，使用`ctrl+shift+p`可以调出命令面板，输入ip就可以看到安装包的指令了。
@@ -121,7 +121,7 @@ import urllib.request,os,hashlib; h = '2deb499853c4371624f5a07e27c334aa' + 'bf8c
 
 ## BracketHighlighter
 
-对括号和引号标识，妈妈再也不用单行找不到对应的括号了。
+对括号和引号标识，妈妈再也不用担心找不到对应的括号了。
 
 
 ## ChangeQuotes
