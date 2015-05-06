@@ -6,7 +6,6 @@ permalink:  /file-servers/
 category:
 tags:
   - Basic
-  - LAMP
 ---
 {% include JB/setup %}
 
@@ -24,6 +23,7 @@ NAS 指 Network Area Storage，它一般是将本地的存储空间共享给其�
 SAN 指 Storage Area Network，它将传输网络模拟成 SCSI 总线来使用，每一个主机的网卡相当于 SCSI 总线中的 initiator，服务器相当于一个或多个 target，它需要借助客户端和服务端的 SCSI 驱动，通过 FC 或 TCP/IP 协议封装 SCSI 报文。它实现的是块级别的共享，通常被识别为一个块设备，但是需要借助专门的锁管理软件才能实现多主机并发访问。
 
 <!--more-->
+
 ##　FTP 
 FTP 是一个文件传输的协议，客户端需要使用专门的 ftp 客户端与服务器端进行通信，以完成文件的上传和下载，FTP 协议工作在应用层。它使用两个连接与客户端通信：
 
@@ -156,7 +156,7 @@ NFS 全称是 Network FileSystem，NFS 和其他文件系统一样，是在 Linu
 
 NFS 的实现使用了 [RPC（Remote Procedure Call）](http://www.wikiwand.com/zh/%E9%81%A0%E7%A8%8B%E9%81%8E%E7%A8%8B%E8%AA%BF%E7%94%A8) 的机制，远程过程调用使得客户端可以调用服务端的函数。由于有 VFS 的存在，客户端可以像使用其他普通文件系统一样使用 NFS 文件系统，由操作系统内核将 NFS 文件系统的调用请求通过 TCP/IP 发送至服务端的 NFS 服务，执行相关的操作，之后服务端再讲操作结果返回客户端。
 
-![](/imgages/file-servers/nfs.png)
+![](/images/file-servers/nfs.png)
 
 NFS 文件系统仅支持基于 IP 的用户访问控制，NFS 是在内核实现的，因此 NFS 服务由内核监听在 TCP 和 UDP 的 2049 端口，对于 NFS 服务的支持需要在内核编译时选择。它同时还使用了几个用户空间进程用于访问控制，用户映射等服务，这些程序由 `nfs-utils` 程序包提供。
 
