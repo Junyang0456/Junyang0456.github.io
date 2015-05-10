@@ -30,8 +30,7 @@ sublime text 是一款跨平台的编辑器，安装插件方便，界面相当�
 		"font_size": 11,
 		"font_options":
 		[
-			"subpixel_antialias",
-			"directwrite"
+			"subpixel_antialias"
 		],
 		"line_padding_bottom": 1,
 		"line_padding_top": 1,
