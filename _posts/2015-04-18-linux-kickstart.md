@@ -74,7 +74,7 @@ kickstart 文件有三部分组成：
 	authconfig --useshadow --passalgo=sha512	# 系统的认证方式，这里选择密码认证，加密算法为 sha512
 	rootpw --iscrypted ....						# 加密后的 root 密码
 	bootloader --location=mbr --driveorder=sda	# bootloader 的安装位置，这里选择安装至 mbr 中
-	
+
 **可选命令**
 
 	install | upgrade								# 安装/升级 操作系统
@@ -146,19 +146,19 @@ kickstart 文件有三部分组成：
 
 
 ## 制作一个引导光盘
-前面说过，系统的安装分为引导和安装两布。在 CentOS 6 的安装光盘中，/isolinux 目录中存放的是用于引导的引导程序，它负责引导系统，加载一个内核，进入临时系统，启动 `anaconda` 安装程序。随后安装程序会对系统进行一些初始设置，安装用户程序软件包。
+前面说过，系统的安装分为引导和安装两布。在 CentOS 6 的安装光盘中，`/isolinux` 目录中存放的是用于引导的引导程序，它负责引导系统，加载一个内核，进入临时系统，启动 `anaconda` 安装程序。随后安装程序会对系统进行一些初始设置，安装用户程序软件包。
 
 那么，可以制作这样一个引导光盘，它仅负责系统引导，而安装系统所需的安装树全部放在远程主机中，光盘中还可以内置一个 kickstart 文件，并修改引导菜单的选项使其安装时自动使用 kickstart 文件安装。
 
 制作过程如下：
 
-1. 准备工作目录，如 /tmp/iso
-2. 将系统安装光盘中的 isolinux 目录复制至 /tmp/iso 目录中
-3. 将预先制作好的 kickstart 文件也放入 /tmp/iso 目录中
-4. 编辑 /tmp/iso/isolinux/isolinux.cfg 文件，使其在安装时直接使用 kickstart 配置文件
+1. 准备工作目录，如 `/tmp/iso`
+2. 将系统安装光盘中的 `/isolinux` 目录复制至 `/tmp/iso` 目录中
+3. 将预先制作好的 kickstart 文件也放入 `/tmp/iso` 目录中
+4. 编辑 `/tmp/iso/isolinux/isolinux.cfg` 文件，使其在安装时直接使用 kickstart 配置文件
 
 	在文件中找到 label linux 菜单项，在 append 指令后附加 ks 设置，如：
-	
+
     	label linux
     	  menu label ^Install or upgrade an existing system
     	  menu default
@@ -166,7 +166,7 @@ kickstart 文件有三部分组成：
     	  append initrd=initrd.img ks=cdrom:/ks.cfg
 5. 创建 iso 镜像：
 
-    	mkisofs -R -J -T -v --no-emul-boot --boot-load-size 4 --boot-info-table 
+    	mkisofs -R -J -T -v --no-emul-boot --boot-load-size 4 --boot-info-table
     	-V "CentOS 6.6 X86_64 boot disk" -b isolinux/isolinux.bin -c isolinux/boot.cat -o /root/boot.iso cdrom/
 
 然后就可以使用 boot.iso 这个镜像来安装操作系统了，当然安装时需要能够通过网络访问到存有安装树的远程主机。
