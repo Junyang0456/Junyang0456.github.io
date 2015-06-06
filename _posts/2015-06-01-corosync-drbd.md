@@ -15,7 +15,7 @@ corosync 是一个提供 Messaging Layer 的高可用集群软件，通常与 pa
 
 <!--more-->
 
-![](/images/drbd/drbd.gif)
+![](/images/corosync-drbd/drbd.gif)
 
 一旦用户空间的进程请求向 DRBD 设备写入或修改数据，DRBD 会捕获这份数据，将数据一分为二，一份写入本地磁盘，另一份通过网络发送至 peer 节点。
 
@@ -101,7 +101,7 @@ DRBD 的配置主要有：
 	resource storage {
 	  device	/dev/drbd0;
 	  disk		/dev/sda3;
-	  meta-disk	internal; 
+	  meta-disk	internal;
 	  on node1 {
 	    address	10.10.0.1:7789;
 	  }
@@ -120,7 +120,7 @@ DRBD 的配置主要有：
 
 查看启动状态：
 
-	# drbd-overview 
+	# drbd-overview
 	 0:storage/0  Connected Secondary/Secondary Inconsistent/Inconsistent
 
 此时两个节点都处于 Secondary 状态，将其中一个节点设为 Primary，在要设置的节点上执行：
@@ -129,8 +129,8 @@ DRBD 的配置主要有：
 
 此时查看状态，两个节点的磁盘将进行按位同步：
 
-	# drbd-overview 
-	 0:storage/0  SyncSource Primary/Secondary UpToDate/Inconsistent 
+	# drbd-overview
+	 0:storage/0  SyncSource Primary/Secondary UpToDate/Inconsistent
 		[>...................] sync'ed:  8.5% (2893492/3155636)K
 
 等待同步完成后，就可以对 drbd 磁盘进行格式化挂载使用了。
@@ -225,6 +225,12 @@ DRBD 的配置主要有：
 
 这样 MySQL 服务就能做到在磁盘损坏或主机故障后偶自动转移 DRBD 主节点，VIP 地址，MySQL 服务等资源。
 
+### 总结
+DRBD + corosync/pacemaker + MySQL 不失为一种构建 MySQL 高可用的方案，甚至 MySQL 官方官文中也推荐使用 DRBD 构建 MySQL 高可用集群。
+
+但是这种方案的缺点也很明显，DRBD，corosync 这些软件的使用并不广泛，网上文档较少，出现问题后很难排查错误。集群如果出现脑裂，很可能导致文件损坏（因此生产系统一定要使用 STONITH 设备）。DRBD 通过网络传输数据，这必然导致传输效率不高，这可能会严重影响 MySQL 数据库的性能。
+
+DRBD 还可以配置集群文件系统 + 分布式事务锁构建双主模型的 DRDB 集群，这样一来，除了 VIP 之外的其余资源都可以运行在每个节点上，实现 MySQL 高可用时只需要将故障节点的 VIP 转移就能完成资源的转移。但是这个方案的实施也是较为复杂的。因此本文仅供实验目的，对高可用集群和 DRBD 没有一定的研究不建议在生产环境使用 DRBD 集群。
 
 
 
