@@ -2,7 +2,7 @@
 title: HAProxy 反向代理的使用
 author: Liao
 layout: post
-permalink:  /nginx-tutorial/
+permalink:  /haproxy-tutorial/
 category:
 tags:
   - HAProxy
