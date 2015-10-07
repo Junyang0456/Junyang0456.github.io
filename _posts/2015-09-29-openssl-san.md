@@ -13,9 +13,11 @@ tags:
 
 SAN(Subject Alternative Name) 是 SSL 标准 x509 中定义的一个扩展。使用了 SAN 字段的 SSL 证书，可以扩展此证书支持的域名，使得一个证书可以支持多个不同域名的解析。
 
-来看一看 Google 是怎样使用 SAN 证书的，下面是 Youtube 网站的证书信息：
+先来看一看 Google 是怎样使用 SAN 证书的，下面是 Youtube 网站的证书信息：
 
 ![](/images/openssl-san/youtube-ssl.png)
+
+<!--more-->
 
 这里可以看到这张证书的 Common Name 字段是 *.google.com，那么为什么这张证书却能够被 www.youtube.com 这个域名所使用呢。原因就是这是一张带有 SAN 扩展的证书，下面是这张证书的 SAN 扩展信息：
 
@@ -23,8 +25,6 @@ SAN(Subject Alternative Name) 是 SSL 标准 x509 中定义的一个扩展。使
 ![](/images/openssl-san/youtube-san-2.png)
 
 这里可以看到，这张证书的 Subject Alternative Name 段中列了一大串的域名，因此这张证书能够被多个域名所使用。对于 Google 这种域名数量较多的公司来说，使用这种类型的证书能够极大的简化网站证书的管理。
-
-<!--more-->
 
 ## 使用 openssl 生成带有 SAN 扩展的证书请求文件（CSR）
 
