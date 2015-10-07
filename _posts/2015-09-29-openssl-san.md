@@ -2,7 +2,7 @@
 title: 使用 openssl 制作一个包含 SAN（Subject Alternative Name）的证书
 author: Liao
 layout: post
-permalink:  /hello-world/
+permalink:  /openssl-san/
 category:
 tags:
   - openssl
