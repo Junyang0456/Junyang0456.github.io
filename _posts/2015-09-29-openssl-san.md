@@ -94,7 +94,7 @@ $ openssl req -new -sha256 \
     -key domain.key \
     -subj "/C=US/ST=CA/O=Acme, Inc./CN=example.com" \
     -reqexts SAN \
-    -config <(cat /etc/ssl/openssl.cnf \
+    -config <(cat /etc/pki/tls/openssl.cnf \
         <(printf "[SAN]\nsubjectAltName=DNS:example.com,DNS:www.example.com")) \
     -out domain.csr
 ```
