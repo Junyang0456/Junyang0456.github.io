@@ -51,8 +51,8 @@ subjectAltName = @alt_names
 
 ```
 [ alt_names ]
-DNS.1 = www.server.example.com
-DNS.2 = server.example.com
+DNS.1 = www.ustack.in
+DNS.2 = www.test.ustack.com
 ```
 
 这里填入需要加入到 Subject Alternative Names 段落中的域名名称，可以写入多个。
@@ -60,13 +60,13 @@ DNS.2 = server.example.com
 接着使用这个临时配置生成证书：
 
 ```
-$ openssl req -new -nodes -keyout server.example.com.key -out server.example.com.csr -config server.example.com.conf
+$ openssl req -new -nodes -keyout ustack.key -out ustack.csr -config /tmp/openssl.cnf
 ```
 
 查看证书请求文件的内容：
 
 ```
-$ openssl req -text -noout -in server.example.com.csr
+$ openssl req -text -noout -in ustack.csr
 ```
 
 可以看到此证书请求文件中会包含 Subject Alternative Names 字段，并包含之前在配置文件中填写的域名。
@@ -76,13 +76,13 @@ $ openssl req -text -noout -in server.example.com.csr
 假设使用本机作为子签署 CA 对此证书请求进行签署，签署的方式为：
 
 ```
-$ openssl ca -policy policy_anything -out server.example.com.crt -config server.example.com.cnf -extensions v3_req -infiles server.example.com.csr
+$ openssl ca -policy policy_anything -out ustack.crt -config /tmp/openssl.cnf -extensions v3_req -infiles ustack.csr
 ```
 
 签署后，查看证书的内容：
 
 ```
-$ openssl x509 -text -noout -in server.example.com.crt
+$ openssl x509 -text -noout -in ustack.crt
 ```
 
 ## 使用单条命令实现
@@ -91,28 +91,40 @@ $ openssl x509 -text -noout -in server.example.com.crt
 
 ```
 $ openssl req -new -sha256 \
-    -key domain.key \
-    -subj "/C=US/ST=CA/O=Acme, Inc./CN=example.com" \
+    -key ustack.key \
+    -subj "/C=CN/ST=Beijing/L=Beijing/O=UnitedStack/OU=Devops/CN=www.ustack.com" \
     -reqexts SAN \
     -config <(cat /etc/pki/tls/openssl.cnf \
-        <(printf "[SAN]\nsubjectAltName=DNS:example.com,DNS:www.example.com")) \
-    -out domain.csr
+        <(printf "[SAN]\nsubjectAltName=DNS:www.ustack.in,DNS:www.test.ustack.com")) \
+    -out ustack.csr
+```
+
+上面生成证书请求时的几个字段的意义：
+
+```
+C  => Country
+ST => State
+L  => City
+O  => Organization
+OU => Organization Unit
+CN => Common Name (证书所请求的域名)
+emailAddress => main administrative point of contact for the certificate
 ```
 
 签署上面生成的证书：
 
 ```
-$ openssl ca -in domain.csr \
+$ openssl ca -in ustack.csr \
 	-extensions SAN \
 	-config <(cat /etc/pki/tls/openssl.cnf \
-        <(printf "[SAN]\nsubjectAltName=DNS:example.com,DNS:www.example.com")) \ 
-	-out domain.crt
+        <(printf "[SAN]\nsubjectAltName=DNS:www.ustack.in,DNS:www.test.ustack.com")) \ 
+	-out ustack.crt
 ```
 	
 查看证书内容：
 
 ```
-$openssl x509 -text -noout -in domain.crt
+$openssl x509 -text -noout -in ustack.crt
 ```
 
 </br>
