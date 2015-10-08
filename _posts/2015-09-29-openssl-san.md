@@ -55,7 +55,7 @@ DNS.1 = www.server.example.com
 DNS.2 = server.example.com
 ```
 
-这里填入需要假如到 Subject Alternative Names 段落中的域名名称，可以写入多个。
+这里填入需要加入到 Subject Alternative Names 段落中的域名名称，可以写入多个。
 
 接着使用这个临时配置生成证书：
 
