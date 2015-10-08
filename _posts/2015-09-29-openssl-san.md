@@ -99,6 +99,23 @@ $ openssl req -new -sha256 \
     -out domain.csr
 ```
 
+签署上面生成的证书：
+
+```
+$ openssl ca -in domain.csr \
+	-extensions SAN \
+	-config <(cat /etc/pki/tls/openssl.cnf \
+        <(printf "[SAN]\nsubjectAltName=DNS:example.com,DNS:www.example.com")) \ 
+	-out domain.crt
+```
+	
+查看证书内容：
+
+```
+$openssl x509 -text -noout -in domain.crt
+```
+
+</br>
 参考：
 
 - [Creating and signing an SSL cert with alternative names](http://blog.zencoffee.org/2013/04/creating-and-signing-an-ssl-cert-with-alternative-names/)
