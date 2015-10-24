@@ -15,8 +15,8 @@ group: "navigation"
 
 化学专业，离经叛道至 IT 行业，Linux newbie，目标是成为一名 Linux Guru<br/>
 
-Focus on: Linux, Python, MySQL<br/>
-Profession: Linux SA<br/>
+Focus on: Openstack, Puppet, Python<br/>
+Profession: DevOps<br/>
 
 * [twitter][twitter]
 * [weibo][weibo]
