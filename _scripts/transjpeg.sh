@@ -2,7 +2,7 @@
 #
 # Convert images to progressive jpeg format.
 
-DIR='/home/liao/Desktop/liaoishere.github.io/'
+DIR='/home/junyang/Desktop/junyang.github.io/'
 
 for i in `find ${DIR}images -type f -name *.jpg`; do
 #	if [ "${i##*.}" != jpg ]; then
